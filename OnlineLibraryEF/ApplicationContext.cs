@@ -13,7 +13,6 @@ namespace OnlineLibraryEF
 
         public ApplicationContext() 
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
