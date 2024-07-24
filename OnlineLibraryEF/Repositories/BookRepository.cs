@@ -33,7 +33,7 @@ namespace OnlineLibraryEF.Repositories
             }
         }
 
-        public void AddNewBook(string title, string author, string description , int year)
+        public void AddNewBook(string title, string description, int year)
         {
             using (var db = new ApplicationContext())
             {
@@ -44,7 +44,7 @@ namespace OnlineLibraryEF.Repositories
             }
         }
 
-        public void DeleteBook(string title, string author, int year) 
+        public void DeleteBook(string title, int year) 
         {
             using (var db = new ApplicationContext()) 
             {
@@ -55,11 +55,11 @@ namespace OnlineLibraryEF.Repositories
             }
         }
 
-        public void DeleteBook(string title, string author, string description , int year)
+        public void DeleteBook(string title, string description , int year)
         {
             using (var db = new ApplicationContext())
             {
-                var newBook = new BookEntity { Title = title, Description = description ,ReleaseYear = year };
+                var newBook = new BookEntity { Title = title, Description = description, ReleaseYear = year };
 
                 db.Books.Remove(newBook);
                 db.SaveChanges();
