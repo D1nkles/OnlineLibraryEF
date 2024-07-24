@@ -8,9 +8,12 @@ namespace OnlineLibraryEF
     {
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<BookEntity> Books { get; set; }
+        public DbSet<AuthorEntity> Authors { get; set; }
+        public DbSet<GenreEntrity> Genres { get; set; }
 
         public ApplicationContext() 
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
