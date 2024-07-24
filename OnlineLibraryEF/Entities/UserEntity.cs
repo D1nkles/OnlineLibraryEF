@@ -9,6 +9,6 @@ namespace OnlineLibraryEF.Entities
         public string? Email { get; set; }
 
         //навигационное свойство для связи с BookEntity
-        List<BookEntity> Books { get; set; } = new List<BookEntity>();
+        public List<BookEntity> Books { get; set; } = new List<BookEntity>();
     }
 }
