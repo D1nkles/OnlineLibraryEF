@@ -31,5 +31,11 @@ namespace OnlineLibraryEF.Actions
 
             return false;
         }
+
+        public int CountBorrowedBooks() 
+        {
+            int booksCount = user.Books.Count();
+            return booksCount;
+        }
     }
 }
