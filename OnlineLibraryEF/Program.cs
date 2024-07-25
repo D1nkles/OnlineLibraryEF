@@ -27,7 +27,7 @@ internal class Program
         Console.WriteLine();
 
         var user = userRepository.SelectUserById(3);
-        var Thatbook = bookRepository.SelectBookById(4);
+        var Thatbook = bookRepository.SelectBookById(7);
         var userActions = new UserActions(user);
 
         Console.WriteLine(userActions.HasBook(Thatbook.Title, Thatbook.ReleaseYear));
@@ -37,14 +37,14 @@ internal class Program
         Console.WriteLine();
 
         var booksAlphaSorted = bookRepository.GetBookListAlphabetSorted();
-        foreach (BookEntity book in booksAlphaSorted) 
-        { 
-            Console.WriteLine(book.Title); 
+        foreach (BookEntity book in booksAlphaSorted)
+        {
+            Console.WriteLine(book.Title);
         }
         Console.WriteLine();
 
         var booksYearsSorted = bookRepository.GetBookListReleaseYearSorted();
-        foreach (BookEntity book in booksYearsSorted) 
+        foreach (BookEntity book in booksYearsSorted)
         {
             Console.WriteLine(book.Title);
         }

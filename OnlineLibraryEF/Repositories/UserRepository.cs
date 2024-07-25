@@ -19,7 +19,7 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext()) 
             {
-                var selectedUser = db.Users.FirstOrDefault(user => user.Id == id);
+                var selectedUser = db.Users.Include(u => u.Books).FirstOrDefault(user => user.Id == id);
                 return selectedUser;
             }
         }

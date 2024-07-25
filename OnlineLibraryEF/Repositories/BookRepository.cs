@@ -18,7 +18,7 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext())
             {
-                var selectedBook = db.Books.FirstOrDefault(book => book.Id == id);
+                var selectedBook = db.Books.Include(b => b.Users).FirstOrDefault(book => book.Id == id);
                 return selectedBook;
             }
         }
@@ -121,8 +121,7 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext()) 
             {
-                var book = db.Books.Where(b => b.Author.FirstName == firstName && b.Author.LastName == lastName && b.Title == bookTitle)
-                    .FirstOrDefault();
+                var book = db.Books.FirstOrDefault(b => b.Author.FirstName == firstName && b.Author.LastName == lastName && b.Title == bookTitle);
 
                 if(book != null) 
                     return true;
@@ -136,7 +135,7 @@ namespace OnlineLibraryEF.Repositories
             using (var db = new ApplicationContext()) 
             {
                 var lastReleaseYear = db.Books.Select(b => b.ReleaseYear).Max();
-                var lastReleasedBook = db.Books.Where(b => b.ReleaseYear == lastReleaseYear).FirstOrDefault();
+                var lastReleasedBook = db.Books.FirstOrDefault(b => b.ReleaseYear == lastReleaseYear);
 
                 return lastReleasedBook;
             }
