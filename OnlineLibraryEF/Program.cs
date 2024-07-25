@@ -13,5 +13,9 @@ internal class Program
         {
             Console.WriteLine(book.Title);
         }
+
+        Console.WriteLine();
+
+        Console.WriteLine(bookRepository.BooksCountByAuthor("Пугач", "Пугачевов"));
     }
 }

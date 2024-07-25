@@ -23,22 +23,26 @@ namespace OnlineLibraryEF.Repositories
             }
         }
 
-        public void AddNewBook(string title, AuthorEntity author, GenreEntrity genre, int year)
+        public void AddNewBook(string title, string authorFirstName, string authorLastName, string genreName, int year)
         {
             using (var db = new ApplicationContext())
             {
-                var newBook = new BookEntity { Title = title, AuthorId = author.Id, GenreId = genre.Id, ReleaseYear = year };
+                var authorId = db.Authors.Where(a => a.FirstName == authorFirstName && a.LastName == authorLastName).Select(a => a.Id).FirstOrDefault();
+                var genreId = db.Genres.Where(g => g.Name == genreName).Select(g => g.Id).FirstOrDefault();
+                var newBook = new BookEntity { Title = title, AuthorId = authorId, GenreId = genreId, ReleaseYear = year };
 
                 db.Books.Add(newBook);
                 db.SaveChanges();
             }
         }
 
-        public void AddNewBook(string title, string description, AuthorEntity author, GenreEntrity genre, int year)
+        public void AddNewBook(string title, string description, string authorFirstName, string authorLastName, string genreName, int year)
         {
             using (var db = new ApplicationContext())
             {
-                var newBook = new BookEntity { Title = title, Description = description , AuthorId = author.Id, GenreId = genre.Id, ReleaseYear = year };
+                var authorId = db.Authors.Where(a => a.FirstName == authorFirstName && a.LastName == authorLastName).Select(a => a.Id).FirstOrDefault();
+                var genreId = db.Genres.Where(g => g.Name == genreName).Select(g => g.Id).FirstOrDefault();
+                var newBook = new BookEntity { Title = title, Description = description , AuthorId = authorId, GenreId = genreId, ReleaseYear = year };
 
                 db.Books.Add(newBook);
                 db.SaveChanges();
@@ -76,14 +80,19 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext()) 
             {
-                var genreEntity = db.Genres.Where(g => g.Name == genreName).FirstOrDefault();
-
-                var bookList = db.Books.Where(b => b.Genre.Id == genreEntity.Id && (b.ReleaseYear >= firstYear && b.ReleaseYear <= lastYear)).ToList();
+                var bookList = db.Books.Where(b => b.Genre.Name == genreName && (b.ReleaseYear >= firstYear && b.ReleaseYear <= lastYear)).ToList();
                 return bookList;
             }
         }
 
-
+        public int BooksCountByAuthor(string firstName, string lastName) 
+        {
+            using (var db = new ApplicationContext()) 
+            {
+                int BookCount = db.Books.Where(b => b.Author.FirstName == firstName && b.Author.LastName == lastName).Count();
+                return BookCount;
+            }
+        }
 
     }
 }
