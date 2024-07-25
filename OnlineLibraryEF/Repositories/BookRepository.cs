@@ -130,5 +130,16 @@ namespace OnlineLibraryEF.Repositories
                 return false;
             }
         }
+
+        public BookEntity GetLastReleasedBook() 
+        {
+            using (var db = new ApplicationContext()) 
+            {
+                var lastReleaseYear = db.Books.Select(b => b.ReleaseYear).Max();
+                var lastReleasedBook = db.Books.Where(b => b.ReleaseYear == lastReleaseYear).FirstOrDefault();
+
+                return lastReleasedBook;
+            }
+        }
     }
 }

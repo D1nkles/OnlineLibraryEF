@@ -33,6 +33,9 @@ internal class Program
         Console.WriteLine(userActions.HasBook(Thatbook.Title, Thatbook.ReleaseYear));
         Console.WriteLine();
 
+        Console.WriteLine(bookRepository.GetLastReleasedBook().Title);
+        Console.WriteLine();
+
 
     }
 }
