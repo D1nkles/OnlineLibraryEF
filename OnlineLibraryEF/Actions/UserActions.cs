@@ -12,7 +12,7 @@ namespace OnlineLibraryEF.Actions
         public void BorrowBook(BookEntity book) 
         {
             using (var db = new ApplicationContext())
-                user.Books.Add(book);
+            user.Books.Add(book);
         }
     }
 }
