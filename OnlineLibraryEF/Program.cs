@@ -37,12 +37,17 @@ internal class Program
         Console.WriteLine();
 
         var booksAlphaSorted = bookRepository.GetBookListAlphabetSorted();
-        foreach (var book in booksAlphaSorted) 
+        foreach (BookEntity book in booksAlphaSorted) 
         { 
-            Console.WriteLine(book); 
+            Console.WriteLine(book.Title); 
         }
         Console.WriteLine();
 
-
+        var booksYearsSorted = bookRepository.GetBookListReleaseYearSorted();
+        foreach (BookEntity book in booksYearsSorted) 
+        {
+            Console.WriteLine(book.Title);
+        }
+        Console.WriteLine();
     }
 }

@@ -142,12 +142,20 @@ namespace OnlineLibraryEF.Repositories
             }
         }
 
-        public List<string> GetBookListAlphabetSorted() 
+        public List<BookEntity> GetBookListAlphabetSorted() 
         {
             using (var db = new ApplicationContext()) 
             {
-                List<string> books = db.Books.Select(b => b.Title).ToList();
-                books.Sort();
+                var books = db.Books.OrderBy(b => b.Title).ToList();
+                return books;
+            }
+        }
+
+        public List<BookEntity> GetBookListReleaseYearSorted() 
+        {
+            using (var db = new ApplicationContext()) 
+            {
+                var books = db.Books.OrderByDescending(b => b.ReleaseYear).ToList();
                 return books;
             }
         }
