@@ -89,10 +89,18 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext()) 
             {
-                int BookCount = db.Books.Where(b => b.Author.FirstName == firstName && b.Author.LastName == lastName).Count();
-                return BookCount;
+                int bookCount = db.Books.Where(b => b.Author.FirstName == firstName && b.Author.LastName == lastName).Count();
+                return bookCount;
             }
         }
 
+        public int BooksCountByGenre(string genreName) 
+        {
+            using (var db = new ApplicationContext()) 
+            {
+                int bookCount = db.Books.Where(b => b.Genre.Name == genreName).Count();
+                return bookCount;
+            }
+        }
     }
 }

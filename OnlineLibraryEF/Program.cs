@@ -13,9 +13,14 @@ internal class Program
         {
             Console.WriteLine(book.Title);
         }
-
         Console.WriteLine();
 
         Console.WriteLine(bookRepository.BooksCountByAuthor("Пугач", "Пугачевов"));
+        Console.WriteLine();
+
+        Console.WriteLine(bookRepository.BooksCountByGenre("Фэнтези"));
+        Console.WriteLine();
+
+
     }
 }
