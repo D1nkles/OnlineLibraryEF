@@ -71,5 +71,19 @@ namespace OnlineLibraryEF.Repositories
                     Console.WriteLine($"Ошибка: Книга под Id {id} не найдена!!!");
             }
         }
+
+        public List<BookEntity> GetBookList(string genreName, int firstYear, int lastYear) 
+        {
+            using (var db = new ApplicationContext()) 
+            {
+                var genreEntity = db.Genres.Where(g => g.Name == genreName).FirstOrDefault();
+
+                var bookList = db.Books.Where(b => b.Genre.Id == genreEntity.Id && (b.ReleaseYear >= firstYear && b.ReleaseYear <= lastYear)).ToList();
+                return bookList;
+            }
+        }
+
+
+
     }
 }
