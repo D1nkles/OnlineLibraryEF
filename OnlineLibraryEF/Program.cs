@@ -21,6 +21,7 @@ internal class Program
         Console.WriteLine(bookRepository.BooksCountByGenre("Фэнтези"));
         Console.WriteLine();
 
-
+        Console.WriteLine(bookRepository.BookExistsByAuthorAndTitle("Фантазер", "Фантазеров", "Фэнтезийная Книга"));
+        Console.WriteLine();
     }
 }

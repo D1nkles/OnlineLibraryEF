@@ -27,8 +27,14 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext())
             {
-                var authorId = db.Authors.Where(a => a.FirstName == authorFirstName && a.LastName == authorLastName).Select(a => a.Id).FirstOrDefault();
-                var genreId = db.Genres.Where(g => g.Name == genreName).Select(g => g.Id).FirstOrDefault();
+                var authorId = db.Authors.Where(a => a.FirstName == authorFirstName && a.LastName == authorLastName)
+                    .Select(a => a.Id)
+                    .FirstOrDefault();
+
+                var genreId = db.Genres.Where(g => g.Name == genreName)
+                    .Select(g => g.Id)
+                    .FirstOrDefault();
+
                 var newBook = new BookEntity { Title = title, AuthorId = authorId, GenreId = genreId, ReleaseYear = year };
 
                 db.Books.Add(newBook);
@@ -40,8 +46,14 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext())
             {
-                var authorId = db.Authors.Where(a => a.FirstName == authorFirstName && a.LastName == authorLastName).Select(a => a.Id).FirstOrDefault();
-                var genreId = db.Genres.Where(g => g.Name == genreName).Select(g => g.Id).FirstOrDefault();
+                var authorId = db.Authors.Where(a => a.FirstName == authorFirstName && a.LastName == authorLastName)
+                    .Select(a => a.Id)
+                    .FirstOrDefault();
+
+                var genreId = db.Genres.Where(g => g.Name == genreName)
+                    .Select(g => g.Id)
+                    .FirstOrDefault();
+
                 var newBook = new BookEntity { Title = title, Description = description , AuthorId = authorId, GenreId = genreId, ReleaseYear = year };
 
                 db.Books.Add(newBook);
@@ -55,7 +67,8 @@ namespace OnlineLibraryEF.Repositories
             {
                 var newBook = new BookEntity { Title = title, ReleaseYear = year };
 
-                db.Books.Where(book => book.Title == title && book.ReleaseYear == year).ExecuteDelete();
+                db.Books.Where(book => book.Title == title && book.ReleaseYear == year)
+                    .ExecuteDelete();
                 db.SaveChanges();
             }
         }
@@ -80,7 +93,8 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext()) 
             {
-                var bookList = db.Books.Where(b => b.Genre.Name == genreName && (b.ReleaseYear >= firstYear && b.ReleaseYear <= lastYear)).ToList();
+                var bookList = db.Books.Where(b => b.Genre.Name == genreName && (b.ReleaseYear >= firstYear && b.ReleaseYear <= lastYear))
+                    .ToList();
                 return bookList;
             }
         }
@@ -89,7 +103,8 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext()) 
             {
-                int bookCount = db.Books.Where(b => b.Author.FirstName == firstName && b.Author.LastName == lastName).Count();
+                int bookCount = db.Books.Where(b => b.Author.FirstName == firstName && b.Author.LastName == lastName)
+                    .Count();
                 return bookCount;
             }
         }
@@ -98,8 +113,23 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext()) 
             {
-                int bookCount = db.Books.Where(b => b.Genre.Name == genreName).Count();
+                int bookCount = db.Books.Where(b => b.Genre.Name == genreName)
+                    .Count();
                 return bookCount;
+            }
+        }
+
+        public bool BookExistsByAuthorAndTitle(string firstName, string lastName, string bookTitle) 
+        {
+            using (var db = new ApplicationContext()) 
+            {
+                var book = db.Books.Where(b => b.Author.FirstName == firstName && b.Author.LastName == lastName && b.Title == bookTitle)
+                    .FirstOrDefault();
+                if(book != null) 
+                {
+                    return true;
+                }
+                return false;
             }
         }
     }
