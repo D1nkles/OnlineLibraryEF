@@ -27,8 +27,12 @@ internal class Program
         Console.WriteLine();
 
         var user = userRepository.SelectUserById(3);
-        var Thatbook = bookRepository.SelectBookById(7);
+        var Thatbook = bookRepository.SelectBookById(4);
         var userActions = new UserActions(user);
-        userActions.BorrowBook(Thatbook);
+
+        Console.WriteLine(userActions.HasBook(Thatbook.Title, Thatbook.ReleaseYear));
+        Console.WriteLine();
+
+
     }
 }

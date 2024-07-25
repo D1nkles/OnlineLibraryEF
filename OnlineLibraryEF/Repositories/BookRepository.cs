@@ -125,9 +125,8 @@ namespace OnlineLibraryEF.Repositories
                     .FirstOrDefault();
 
                 if(book != null) 
-                {
                     return true;
-                }
+                
                 return false;
             }
         }

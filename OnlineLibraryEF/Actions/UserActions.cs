@@ -21,5 +21,15 @@ namespace OnlineLibraryEF.Actions
                 db.SaveChanges();
             }
         }
+
+        public bool HasBook(string bookTitle, int releaseYear)
+        {
+            var book = user.Books.Where(b => b.Title == bookTitle && b.ReleaseYear == releaseYear).FirstOrDefault();
+
+            if (book != null)
+                return true;
+
+            return false;
+        }
     }
 }
