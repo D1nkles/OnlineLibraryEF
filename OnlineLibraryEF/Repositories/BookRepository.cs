@@ -65,8 +65,6 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext()) 
             {
-                var newBook = new BookEntity { Title = title, ReleaseYear = year };
-
                 db.Books.Where(book => book.Title == title && book.ReleaseYear == year)
                     .ExecuteDelete();
                 db.SaveChanges();
@@ -125,6 +123,7 @@ namespace OnlineLibraryEF.Repositories
             {
                 var book = db.Books.Where(b => b.Author.FirstName == firstName && b.Author.LastName == lastName && b.Title == bookTitle)
                     .FirstOrDefault();
+
                 if(book != null) 
                 {
                     return true;

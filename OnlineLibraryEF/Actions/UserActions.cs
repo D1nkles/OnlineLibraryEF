@@ -4,7 +4,7 @@ namespace OnlineLibraryEF.Actions
 {
     internal class UserActions
     {
-        private UserEntity user;
+        public UserEntity user;
         public UserActions(UserEntity user) 
         {
             this.user = user;
@@ -12,7 +12,14 @@ namespace OnlineLibraryEF.Actions
         public void BorrowBook(BookEntity book) 
         {
             using (var db = new ApplicationContext())
+            {
                 user.Books.Add(book);
+
+                db.Users.Update(user);
+                db.Books.Update(book);
+
+                db.SaveChanges();
+            }
         }
     }
 }

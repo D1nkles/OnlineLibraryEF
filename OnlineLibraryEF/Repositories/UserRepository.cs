@@ -1,4 +1,6 @@
-﻿using OnlineLibraryEF.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineLibraryEF.Entities;
+using System.Linq;
 
 namespace OnlineLibraryEF.Repositories
 {
@@ -48,7 +50,8 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext()) 
             {
-                db.Users.Remove(new UserEntity { Name = name });
+                db.Users.Where(u => u.Name == name)
+                    .ExecuteDelete();
                 db.SaveChanges();
             }
         }
@@ -57,7 +60,8 @@ namespace OnlineLibraryEF.Repositories
         {
             using (var db = new ApplicationContext())
             {
-                db.Users.Remove(new UserEntity { Name = name, Email = email });
+                db.Users.Where(u => u.Name == name && u.Email == email)
+                    .ExecuteDelete();
                 db.SaveChanges();
             }
         }
@@ -77,5 +81,7 @@ namespace OnlineLibraryEF.Repositories
                     Console.WriteLine($"Ошибка: Пользователь под Id {id} не найден!!!");
             }
         }
+
+
     }
 }

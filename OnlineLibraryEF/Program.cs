@@ -8,6 +8,8 @@ internal class Program
     static void Main(string[] args) 
     {
         BookRepository bookRepository = new BookRepository();
+        UserRepository userRepository = new UserRepository();
+
         var bookList = bookRepository.GetBookList("Ужасы", 1960, 2000);
         foreach (var book in bookList)
         {
@@ -23,5 +25,10 @@ internal class Program
 
         Console.WriteLine(bookRepository.BookExistsByAuthorAndTitle("Фантазер", "Фантазеров", "Фэнтезийная Книга"));
         Console.WriteLine();
+
+        var user = userRepository.SelectUserById(3);
+        var Thatbook = bookRepository.SelectBookById(7);
+        var userActions = new UserActions(user);
+        userActions.BorrowBook(Thatbook);
     }
 }
