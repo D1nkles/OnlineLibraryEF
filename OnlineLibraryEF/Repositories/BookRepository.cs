@@ -141,5 +141,15 @@ namespace OnlineLibraryEF.Repositories
                 return lastReleasedBook;
             }
         }
+
+        public List<string> GetBookListAlphabetSorted() 
+        {
+            using (var db = new ApplicationContext()) 
+            {
+                List<string> books = db.Books.Select(b => b.Title).ToList();
+                books.Sort();
+                return books;
+            }
+        }
     }
 }

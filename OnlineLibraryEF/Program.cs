@@ -36,6 +36,13 @@ internal class Program
         Console.WriteLine(bookRepository.GetLastReleasedBook().Title);
         Console.WriteLine();
 
+        var booksAlphaSorted = bookRepository.GetBookListAlphabetSorted();
+        foreach (var book in booksAlphaSorted) 
+        { 
+            Console.WriteLine(book); 
+        }
+        Console.WriteLine();
+
 
     }
 }
