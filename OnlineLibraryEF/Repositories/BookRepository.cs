@@ -1,4 +1,5 @@
-﻿using OnlineLibraryEF.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineLibraryEF.Entities;
 
 namespace OnlineLibraryEF.Repositories
 {
@@ -13,31 +14,31 @@ namespace OnlineLibraryEF.Repositories
             }
         }
 
-        public BookEntity SelectUserById(int id)
+        public BookEntity SelectBookById(int id)
         {
             using (var db = new ApplicationContext())
             {
-                var selectedUser = db.Books.FirstOrDefault(book => book.Id == id);
-                return selectedUser;
+                var selectedBook = db.Books.FirstOrDefault(book => book.Id == id);
+                return selectedBook;
             }
         }
 
-        public void AddNewBook(string title, int year)
+        public void AddNewBook(string title, AuthorEntity author, GenreEntrity genre, int year)
         {
             using (var db = new ApplicationContext())
             {
-                var newBook = new BookEntity { Title = title, ReleaseYear = year };
+                var newBook = new BookEntity { Title = title, AuthorId = author.Id, GenreId = genre.Id, ReleaseYear = year };
 
                 db.Books.Add(newBook);
                 db.SaveChanges();
             }
         }
 
-        public void AddNewBook(string title, string description, int year)
+        public void AddNewBook(string title, string description, AuthorEntity author, GenreEntrity genre, int year)
         {
             using (var db = new ApplicationContext())
             {
-                var newBook = new BookEntity { Title = title, Description = description , ReleaseYear = year };
+                var newBook = new BookEntity { Title = title, Description = description , AuthorId = author.Id, GenreId = genre.Id, ReleaseYear = year };
 
                 db.Books.Add(newBook);
                 db.SaveChanges();
@@ -50,18 +51,7 @@ namespace OnlineLibraryEF.Repositories
             {
                 var newBook = new BookEntity { Title = title, ReleaseYear = year };
 
-                db.Books.Remove(newBook);
-                db.SaveChanges();
-            }
-        }
-
-        public void DeleteBook(string title, string description , int year)
-        {
-            using (var db = new ApplicationContext())
-            {
-                var newBook = new BookEntity { Title = title, Description = description, ReleaseYear = year };
-
-                db.Books.Remove(newBook);
+                db.Books.Where(book => book.Title == title && book.ReleaseYear == year).ExecuteDelete();
                 db.SaveChanges();
             }
         }
